@@ -13,6 +13,16 @@ git rebase google/master
 
 Otherwise, create regular commits **in the `oastyle`. branch**. `master` is reserved for keeping a local copy of the google master branch.
 
+## Building an image for local use
+
+```
+git submodule init
+git submodule update
+docker build -t openanalytics/docsy .
+```
+
+# Disclaimer
+
 The info below should not be modified.
 
 # Docsy 
