@@ -1,10 +1,41 @@
-FROM klakegg/hugo:0.101.0-ext-alpine as docsy-user-guide
+FROM ubuntu:18.04
 
-RUN apk update
-RUN apk add git
-COPY package.json /app/docsy/userguide/
-WORKDIR /app/docsy/userguide/
-RUN npm install --production=false
-RUN git config --global --add safe.directory /app/docsy
+LABEL maintainer="OA IT-Support <itsupport@openanalytics.eu>"
 
-CMD ["serve", "--cleanDestinationDir", "--themesDir", "../..", "--baseURL",  "http://localhost:1313/", "--buildDrafts", "--buildFuture", "--disableFastRender", "--ignoreCache", "--watch"]
+ENV HUGO_VERSION 0.71.1
+ENV AUTOPREFIXER_VERSION 9.8.6
+ENV POSTCSSCLI_VERSION 7.1.2
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update \ 
+  && apt-get install -y --no-install-recommends \
+      apt-utils \
+      ca-certificates \
+      apt-transport-https \
+      git \
+      wget \
+  && rm -rf /var/lib/apt/lists/*
+
+# install recent LTS version of node, see https://nodejs.org/en/about/releases/
+RUN wget -qO- https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get update \
+  && apt-get install -y nodejs \
+  && rm -rf /var/lib/apt/lists/*
+
+# extended version for docsy theme
+ADD https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.deb /tmp
+
+RUN dpkg -i /tmp/hugo_extended_${HUGO_VERSION}_Linux-64bit.deb
+
+# for docsy
+RUN npm install -D --save autoprefixer@${AUTOPREFIXER_VERSION}
+RUN npm install -g -D --save postcss-cli@${POSTCSSCLI_VERSION}
+
+RUN mkdir -p /etc/hugo/themes
+COPY . /etc/hugo/themes/docsy
+
+WORKDIR /src
+
+EXPOSE 1313
+
