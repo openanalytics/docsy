@@ -1,3 +1,20 @@
+# OA Docsy
+
+This is a fork of the official docsy theme: https://github.com/google/docsy
+
+The fork adds OA styling, tweaks and Jenkins CI in an `oastyle` branch.
+
+To update the theme upstream, rebase on master:
+
+```
+git remote add google https://github.com/google/docsy
+git rebase google/master
+```
+
+Otherwise, create regular commits **in the `oastyle`. branch**. `master` is reserved for keeping a local copy of the google master branch.
+
+The info below should not be modified.
+
 # Docsy 
 
 Docsy is a [Hugo](https://gohugo.io/) theme for technical documentation sets, providing simple navigation, site structure, and more.
