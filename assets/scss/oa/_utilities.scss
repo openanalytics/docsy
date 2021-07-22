@@ -1,0 +1,5 @@
+.td-max-width-on-larger-screens {
+    @include media-breakpoint-up(lg) {
+        max-width: unset;
+    }
+}
