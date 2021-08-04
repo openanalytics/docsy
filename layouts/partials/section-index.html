@@ -1,5 +1,5 @@
 <div class="section-index">
-    {{ $pages := (where .Site.Pages "Section" .Section).ByWeight }}
+    {{ $pages := .Site.Pages.ByWeight }}
     {{ $pages = (where $pages "Type" "!=" "search") }}
     {{ $parent := .Page }}
     {{ if $parent.Params.no_list }}
