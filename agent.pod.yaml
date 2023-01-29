@@ -3,7 +3,7 @@ kind: Pod
 spec:
   containers:
   - name: kaniko
-    image: gcr.io/kaniko-project/executor:v1.8.1-debug
+    image: gcr.io/kaniko-project/executor:v1.9.1-debug
     env:
     - name: AWS_SDK_LOAD_CONFIG
       value: "true"
@@ -15,7 +15,8 @@ spec:
       requests:
           memory: "100Mi"
       limits:
-          memory: "1024Mi"
+          memory: "2Gi"
+          ephemeral-storage: "2Gi"
     imagePullPolicy: Always
   - name: aws-cli
     image: amazon/aws-cli:2.1.33

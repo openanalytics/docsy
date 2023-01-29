@@ -3,7 +3,8 @@ pipeline {
     IMAGE = 'docsy'
     NS = 'oa-infrastructure'
     REGISTRY = '196229073436.dkr.ecr.eu-west-1.amazonaws.com'
-    TAG = env.BRANCH_NAME.toLowerCase().replaceAll(/[^a-z0-9._-]/, '.')
+    BRANCH_NAME_SAFE = env.BRANCH_NAME.toLowerCase().replaceAll(/[^a-z0-9._-]/, '.')
+    TAG = "${ env.BRANCH_NAME_SAFE == 'oastyle' ? 'latest' : env.BRANCH_NAME_SAFE }"
     REGION = 'eu-west-1'
   }
   agent {
