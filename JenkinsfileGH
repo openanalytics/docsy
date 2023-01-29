@@ -1,55 +1,43 @@
 pipeline {
-
-    agent {
-        kubernetes {
-            yamlFile 'agent.pod.yaml'
+  environment {
+    IMAGE = 'docsy'
+    NS = 'oa-infrastructure'
+    REGISTRY = '196229073436.dkr.ecr.eu-west-1.amazonaws.com'
+    TAG = env.BRANCH_NAME.toLowerCase().replaceAll(/[^a-z0-9._-]/, '.')
+    REGION = 'eu-west-1'
+  }
+  agent {
+    kubernetes {
+      yamlFile 'agent.pod.yaml'
+    }
+  }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '3'))
+    authorizationMatrix inheritanceStrategy: inheritingGlobal(), permissions: ['hudson.model.Item.Build:oa-infrastructure', 'hudson.model.Item.Read:oa-infrastructure']
+  }
+  stages {
+    stage('image') {
+      steps {
+        container('aws-cli'){
+            sh """
+            aws --region ${env.REGION} ecr describe-repositories \
+                    --repository-names ${env.NS}/${env.IMAGE} \
+                || aws --region ${env.REGION} ecr create-repository \
+                    --repository-name ${env.NS}/${env.IMAGE}
+            """
         }
-    }
-
-    options {
-        authorizationMatrix inheritanceStrategy: inheritingGlobal(), permissions: ['hudson.model.Item.Build:oa-infrastructure', 'hudson.model.Item.Read:oa-infrastructure']
-        buildDiscarder(logRotator(numToKeepStr: '3'))
-    }
-
-    environment {
-        shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-        IMAGE = "docsy"
-        NS = "oa-infrastructure"
-        REG = "196229073436.dkr.ecr.eu-west-1.amazonaws.com"
-    }
-    
-    stages {
-
-        stage('Pulling Old Image'){
-            steps {
-                container('dind') {
-                    // login to ecr
-                    ecrPull "${env.REG}", "${env.NS}/${env.IMAGE}", "latest", '', 'eu-west-1'
-                }
-            }
+        container('kaniko'){
+            sh """
+            /kaniko/executor \
+                     -v info \
+                     --context ${env.WORKSPACE} \
+                     --cache=true \
+                     --cache-repo ${env.REGISTRY}/${env.NS}/${env.IMAGE} \
+                     --destination ${env.REGISTRY}/${env.NS}/${env.IMAGE}:${env.TAG}
+            """
         }
-        
-        stage('Build Image'){
-            steps {
-                container('dind'){
-                    sh """
-                        docker build --cache-from ${env.REG}/${env.NS}/${env.IMAGE}:latest -t ${env.NS}/${env.IMAGE} -t ${env.NS}/${env.IMAGE}:${env.shortCommit} .
-                    """
-
-                }
-            }
-        }
+      }
     }
-
-    post {
-        success  {
-            container('dind'){
-                sh "echo tagging and pushing images to registry"
-
-                ecrPush "${env.REG}", "${env.NS}/${env.IMAGE}", "latest", '', 'eu-west-1' 
-                ecrPush "${env.REG}", "${env.NS}/${env.IMAGE}", "${env.shortCommit}", '', 'eu-west-1'   
-            }
-        }
-    }
+  }
 }
 
