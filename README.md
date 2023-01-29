@@ -4,14 +4,14 @@ This is a fork of the official docsy theme: https://github.com/google/docsy
 
 The fork adds OA styling, tweaks and Jenkins CI in an `oastyle` branch.
 
-To update the theme upstream, rebase on master:
+To update the theme upstream, rebase on `main`:
 
 ```
 git remote add google https://github.com/google/docsy
-git rebase google/master
+git rebase google/main
 ```
 
-Otherwise, create regular commits **in the `oastyle`. branch**. `master` is reserved for keeping a local copy of the google master branch.
+Otherwise, create regular commits **in the `oastyle`. branch**. `main` is reserved for keeping a local copy of the google `main` branch.
 
 ## Building an image for local use
 
