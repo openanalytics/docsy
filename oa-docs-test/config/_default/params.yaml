@@ -1,0 +1,35 @@
+copyright: Open Analytics NV
+
+# Repository configuration (URLs for in-page links to opening issues and suggesting changes)
+# github_repo : "https://scm.openanalytics.eu/git/oa-docs-tools"
+# An optional link to a related project repo. For example, the sibling repository where your product code lives.
+#github_project_repo = "https://github.com/google/docsy"
+link_data: "repo_links"
+
+# Specify a value here if your content directory is not in your repo's root directory
+#github_subdir = ""
+
+# Enable Algolia DocSearch
+algolia_docsearch: false
+
+# Enable Lunr.js offline search
+offlineSearch: true
+
+prism_syntax_highlighting: true
+
+# User interface configuration
+ui:
+  sidebar_menu_compact: false
+  #  Set to true to disable breadcrumb navigation.
+  breadcrumb_disable: false
+  #  Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+  sidebar_search_disable: false
+  #  Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
+  navbar_logo: true
+  # Set to true to disable the About link in the site footer
+  footer_about_disable: true
+  feedback:
+    enable: false
+  readingtime:
+    enable: false
+

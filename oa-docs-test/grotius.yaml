@@ -1,0 +1,39 @@
+render:
+  errorPage: oaDocs::errorPage
+
+siteNews:
+  output: data/site_news
+
+linkData:
+  output: repo_links
+  editPage: oaDocs::formatEditURL
+  newPage: oaDocs::formatEditURL
+  lastMod: oaDocs::formatCommitURL
+  issues:
+    oaDocs::formatRedmineProjectIssuesURL:
+      project: oa-docs-issues
+      category: 275
+
+credentials:
+  - id: github
+    matchInput: "https://github.com*"
+    git2r:
+      git2r::cred_env:
+        username: GROTIUS_GH_USERNAME
+        password: GROTIUS_GH_PASSWORD
+
+  - id: scm
+    matchInput: "https://scm.openanalytics.eu*"
+    git2r:
+      git2r::cred_env:
+        username: GROTIUS_SCM_USERNAME
+        password: GROTIUS_SCM_PASSWORD
+
+documents:
+  - input: src/foo.Rmd
+    output: content/foo/_index.md
+  - input: src/bar/index.Rmd
+    output: content/bar/_index.md
+  - input: src/bar/biz.Rmd
+    output: content/bar/biz/_index.md
+

@@ -1,0 +1,10 @@
+/public
+/resources/_gen/*
+/resources/_gen
+
+/.project
+
+/content/*
+/data/*
+*.swp
+

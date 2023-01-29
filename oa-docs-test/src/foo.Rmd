@@ -1,0 +1,7 @@
+---
+title: Foo
+linkTitle: Foo
+---
+
+Lorem ipsum dolor sit amet.
+
