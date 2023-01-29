@@ -1,9 +1,4 @@
 main:
-  - identifier: portal
-    pre: "<i class='fas fa-book'></i>"
-    name: Docs Portal
-    url: ../portal/
-    weight: 1
   - identifier: help
     pre: "<i class='fas fa-question-circle'></i>"
     name: ""

@@ -41,7 +41,7 @@
 
 
     .navbar-brand {
-        text-transform: none;
+        text-transform: uppercase;
         text-align: middle;
 
         .nav-link {
@@ -53,6 +53,7 @@
             display: inline-block;
             margin: 0 10px;
             height: 30px;
+            width: 3em;
         }
     }
 
@@ -101,21 +102,26 @@
 }
 
 span.navbar-logo {
-margin-left: -180px;
+  display: inline;
+//margin-left: -180px;
 }
 
 span.text-uppercase {
-margin-left: -160px;
-margin-right: 50px;
+//margin-left: -160px;
+//margin-right: 50px;
 }
 
 .td-navbar .navbar-brand svg {
 	overflow: visible;
 }
 
-.navbar-brand {
-	line-height: 1.5;
+i.navbar-brand-portal-separator {
+  font-size: 1rem;
 }
 
-
+span.navbar-brand__name {
+  font-family: Cantarell, Helvetica, sans-serif;
+	line-height: 1.5;
+  text-transform: uppercase;
+}
 

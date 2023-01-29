@@ -8,6 +8,9 @@ params:
   rss_sections: [blog]
   drawio:
     enable: true
+  portalTitle: "OA Docs"
+  portalLink: "https://docs.openanalytics.eu/portal/"
+  globalSearchIndex: "https://docs.openanalytics.eu/portal/index"
 
 outputFormats:
   PRINT:

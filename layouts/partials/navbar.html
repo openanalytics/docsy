@@ -5,7 +5,7 @@
 
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark
             {{- if $cover }} td-navbar-cover {{- end }} flex-column flex-md-row td-navbar">
-  <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
+  <a class="navbar-brand" href="{{ .Site.Params.PortalLink }}">
     {{- /**/ -}}
     <span class="navbar-brand__logo navbar-logo">
       {{- if ne .Site.Params.ui.navbar_logo false -}}
@@ -15,6 +15,12 @@
       {{ end -}}
     </span>
     {{- /**/ -}}
+    <span class="navbar-brand__name">
+      {{- .Site.Params.PortalTitle -}}
+    </span>
+  </a>
+  <i class="navbar-brand fa-sharp fa-solid fa-chevron-right navbar-brand-portal-separator"></i>
+  <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
     <span class="navbar-brand__name">
       {{- .Site.Title -}}
     </span>
@@ -57,6 +63,6 @@
     </ul>
   </div>
   <div class="navbar-nav d-none d-lg-block">
-    {{ partial "search-input.html" . }}
+    {{ partial "global-search-input.html" . }}
   </div>
 </nav>

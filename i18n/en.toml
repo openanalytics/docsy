@@ -12,6 +12,9 @@ other = "Read more"
 [ui_search]
 other = "Search this site…"
 
+[ui_search_global]
+other = "Search OA Docs…"
+
 # Used in sentences such as "Posted in News"
 [ui_in]
 other = "in"
