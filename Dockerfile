@@ -29,13 +29,16 @@ ADD https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_ext
 
 RUN dpkg -i /tmp/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
 
+RUN npm install -g postcss@${POSTCSS_VERSION}
+RUN npm install -g postcss-cli@${POSTCSSCLI_VERSION}
+RUN npm install -g @fortawesome/fontawesome-free@6.2.0
+RUN npm install -g bootstrap@4.6.2
+
 RUN mkdir -p /etc/hugo/themes
 COPY . /etc/hugo/themes/docsy
 WORKDIR /etc/hugo/themes/docsy
-RUN npm install --save-dev -g autoprefixer@${AUTOPREFIXER_VERSION}
-RUN npm install --save-dev -g postcss@${POSTCSS_VERSION}
-RUN npm install --save-dev -g postcss-cli@${POSTCSSCLI_VERSION}
-RUN npm install -g 
+RUN npm install autoprefixer@${AUTOPREFIXER_VERSION}
+RUN npm install 
 
 WORKDIR /src
 

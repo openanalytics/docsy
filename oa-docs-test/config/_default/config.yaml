@@ -3,7 +3,7 @@ title: Test
 languageCode: en-us
 theme: docsy
 modules:
-  - path: github.com/google/docsy/dependencies
+  - path: github.com/google/docsy/dependencies@v0.6.0
     disable: false
 enableGitInfo: true
 contentDir: content
