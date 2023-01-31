@@ -9,16 +9,19 @@
   {{- end }}
 {{ else if (.Lastmod) }}
   {{ T "post_last_mod" }} {{ .Lastmod.Format .Site.Params.time_format_default -}}
-  {{ if and ($.Param "link_data") ($.Param "lastmodSummary") }}
-    {{ $link_data := index .Site.Data ($.Param "link_data") }}
-    {{ if $link_data }}
-      {{ $page_link_data := index $link_data .Path }}
-      {{ if $page_link_data }} 
-      {{ if $page_link_data.lastModURL }}: <a href="{{$page_link_data.lastModURL}}">{{ $.Param "lastmodSummary"}}{{ if $.Param "lastmodAbbreviatedHash" }} ({{ $.Param "lastmodAbbreviatedHash" }}){{ end }}</a>
-        {{ end }}
+{{ end }}
+</div>
+{{ end -}}
+{{ if and ($.Param "link_data") ($.Param "lastmodSummary") -}}
+  <div class="text-muted mt-5 pt-3 border-top">
+    {{ T "post_last_mod" }} {{ .Lastmod.Format .Site.Params.time_format_default -}}
+  {{ $link_data := index .Site.Data ($.Param "link_data") }}
+  {{ if $link_data }}
+    {{ $page_link_data := index $link_data .Path }}
+    {{ if $page_link_data }} 
+    {{ if $page_link_data.lastModURL }}: <a href="{{$page_link_data.lastModURL}}">{{ $.Param "lastmodSummary"}}{{ if $.Param "lastmodAbbreviatedHash" }} ({{ $.Param "lastmodAbbreviatedHash" }}){{ end }}</a>
       {{ end }}
     {{ end }}
   {{ end }}
-{{ end }}
-</div>
+  </div>
 {{ end -}}
