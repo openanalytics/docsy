@@ -40,6 +40,13 @@ WORKDIR /etc/hugo/themes/docsy
 RUN npm install autoprefixer@${AUTOPREFIXER_VERSION}
 RUN npm install 
 
+RUN useradd hugo -u 1000 \
+    && mkdir /home/hugo \
+    && chown hugo:hugo /home/hugo \
+    && addgroup hugo staff \
+    && adduser hugo sudo \
+    && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+USER hugo
 WORKDIR /src
 
 EXPOSE 1313
