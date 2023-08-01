@@ -1,8 +1,8 @@
 pipeline {
   environment {
     IMAGE = 'docsy'
-    NS = 'oa-infrastructure'
-    REGISTRY = '196229073436.dkr.ecr.eu-west-1.amazonaws.com'
+    NS = 'oa-docs'
+    REGISTRY = 'registry.openanalytics.eu'
     BRANCH_NAME_SAFE = env.BRANCH_NAME.toLowerCase().replaceAll(/[^a-z0-9._-]/, '.')
     TAG = "${ env.BRANCH_NAME_SAFE == 'oastyle' ? 'latest' : env.BRANCH_NAME_SAFE }"
     REGION = 'eu-west-1'
@@ -19,14 +19,6 @@ pipeline {
   stages {
     stage('image') {
       steps {
-        container('aws-cli'){
-            sh """
-            aws --region ${env.REGION} ecr describe-repositories \
-                    --repository-names ${env.NS}/${env.IMAGE} \
-                || aws --region ${env.REGION} ecr create-repository \
-                    --repository-name ${env.NS}/${env.IMAGE}
-            """
-        }
         container('kaniko'){
             sh """
             /kaniko/executor \
