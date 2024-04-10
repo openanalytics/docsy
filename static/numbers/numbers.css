@@ -1,0 +1,94 @@
+.toc-h2-active {
+    color: #30638e !important;
+    font-weight: bold !important;
+}
+
+.toc-h2-active + ul .toc-h3-active {
+    color: #30638e !important;
+    font-weight: bold !important;
+}
+
+:root {
+    --base-section-num: "";
+}
+
+body {
+    counter-reset: h2
+}
+
+h1 {
+    counter-reset: h2
+}
+
+h2 {
+    counter-reset: h3
+}
+
+h3 {
+    counter-reset: h4
+}
+
+h4 {
+    counter-reset: h5
+}
+
+h5 {
+    counter-reset: h6
+}
+
+h2 {
+    scroll-margin-top: 80px;
+}
+
+h3 {
+    scroll-margin-top: 80px;
+}
+
+h2 + h3 {
+    scroll-margin-top: 130px;
+}
+
+h2[id]::before {
+    display: inline;
+    visibility: visible;
+    counter-increment: h2;
+    content: var(--base-section-num, "") counter(h2) ". ";
+}
+
+h3[id]::before {
+    display: inline;
+    visibility: visible;
+    counter-increment: h3;
+    content: var(--base-section-num, "") counter(h2) "." counter(h3) ". ";
+}
+
+h4[id]::before {
+    display: inline;
+    visibility: visible;
+    counter-increment: h4;
+    content: var(--base-section-num, "") counter(h2) "." counter(h3) "." counter(h4) ". ";
+}
+
+h5[id]::before {
+    display: inline;
+    visibility: visible;
+    counter-increment: h5;
+    content: var(--base-section-num, "") counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". ";
+}
+
+h6[id]::before {
+    display: inline;
+    visibility: visible;
+    counter-increment: h6;
+    content: var(--base-section-num, "") counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". ";
+}
+
+.td-toc ul {
+    counter-reset: item;
+}
+
+.td-toc li a:before {
+    content: counters(item, ".") ". ";
+    counter-increment: item;
+}
+

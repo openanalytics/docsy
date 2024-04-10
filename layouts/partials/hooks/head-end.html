@@ -1,3 +1,8 @@
 {{ with .Site.Params.algolia_docsearch }}
 <!-- stylesheet for algolia docsearch -->
 {{ end }}
+{{ if .Param "numbered_headers" }}
+<link rel="stylesheet" href="{{ "numbers/numbers.css" | relURL }}"/>
+<script src="{{ "numbers/numbers.js" | relURL }}"></script>
+{{ end }}
+
