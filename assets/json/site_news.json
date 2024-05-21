@@ -1,0 +1,19 @@
+{{- $.Scratch.Add "site_news" slice -}}
+{{- $news := sort $.Site.Data.site_news "time" "desc" -}}
+
+{{- range $news -}}
+{{- $page := site.GetPage .output -}}
+{{- $.Scratch.Add
+    "site_news"
+    (dict
+        "time" .time
+        "summary" .summary
+        "commit" .commit
+        "output" .output
+        "pageURL" $page.RelPermalink
+        "pageTitle" $page.Title
+    )
+-}}
+{{- end -}}
+{{- $.Scratch.Get "site_news" | jsonify -}}
+

@@ -1,0 +1,15 @@
+  {{ $news := resources.Get "json/site_news.json" | resources.ExecuteAsTemplate "site_news.json" . -}}
+  {{ $news := $news | fingerprint "md5" -}}
+  {{ $newsLink := $news.RelPermalink }}
+  <div class="site-news" data-site-news-json="{{ $newsLink}} ">
+    <h2>News</h2>
+    <ul>
+    {{ range ($news | unmarshal | first 10 )}}
+      <li>
+	{{ $page := site.GetPage .output }}
+	<a href = "{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+	<p>{{ (.time | time).Format "Jan 2, 2006" }}: {{ .summary }} ({{ substr .commit 0 7 }})</p>
+      </li>
+    {{ end }}
+    </ul>
+  </div>

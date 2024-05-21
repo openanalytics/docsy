@@ -4,23 +4,13 @@
 
 	{{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
 	{{ .Content }}
-  
+
   {{ partial "section-index.html" . }}
-  
+
   <hr class="panel-line">
 
-  <h2>News</h2>
-  {{ $news := sort $.Site.Data.site_news "time" "desc" }}
-  <ul>
-  {{ range ($news | first 10 )}}
-    <li>
-      {{ $page := site.GetPage .output }}
-      <a href = "{{ $page.RelPermalink }}">{{ $page.Title }}</a>
-      <p>{{ (.time | time).Format "Jan 2, 2006" }}: {{ .summary }} ({{ substr .commit 0 7 }})</p>
-    </li>
-  {{ end }}
-  </ul>
-  {{ $newsRes := (resources.FromString "site_news.json" ($news | jsonify)).RelPermalink }}
+  {{ partial "news" . }}
+
 
 	<div class="text-muted mt-5 pt-3 border-top">{{ partial "page-meta-lastmod.html" . }}</div>
 </div>
