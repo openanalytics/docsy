@@ -9,12 +9,11 @@ pipeline {
   }
   agent {
     kubernetes {
-      yamlFile 'agent.pod.yaml'
+      inheritFrom 'kaniko'
     }
   }
   options {
     buildDiscarder(logRotator(numToKeepStr: '3'))
-    authorizationMatrix inheritanceStrategy: inheritingGlobal(), permissions: ['hudson.model.Item.Build:oa-infrastructure', 'hudson.model.Item.Read:oa-infrastructure']
   }
   stages {
     stage('image') {
