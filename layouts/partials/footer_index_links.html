@@ -1,0 +1,16 @@
+{{ $offlineSearchIndex := resources.Get "json/offline-search-index.json" | resources.ExecuteAsTemplate "offline-search-index.json" . -}}
+{{ if hugo.IsProduction -}}
+{{ $offlineSearchIndex = $offlineSearchIndex | fingerprint "md5" -}}
+{{ end -}}
+{{ $offlineSearchLink := $offlineSearchIndex.RelPermalink -}}
+
+{{ $markdownIndex := resources.Get "json/markdown-index.json" | resources.ExecuteAsTemplate "markdown-index.json" . -}}
+{{ if hugo.IsProduction -}}
+{{ $markdownIndex = $markdownIndex | fingerprint "md5" -}}
+{{ end -}}
+{{ $markdownIndexLink := $markdownIndex.RelPermalink -}}
+<p><small class="text-white">
+  <a href="{{ $offlineSearchLink }}">site text</a>
+  •
+  <a href="{{ $markdownIndexLink }}">site md</a>
+</p></small>

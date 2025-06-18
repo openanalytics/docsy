@@ -1,0 +1,17 @@
+{{- $.Scratch.Add "markdown-index" slice -}}
+{{- range where .Site.AllPages ".Params.exclude_search" "!=" true -}}
+{{- /* We have to apply `htmlUnescape` again after `truncate` because `truncate` applies `html.EscapeString` if the argument is not HTML. */ -}}
+{{- /* Individual taxonomies can be added in the next line by add '"taxonomy-name" (.Params.taxonomy-name | default "")' to the dict (as seen for categories and tags). */ -}}
+{{- $.Scratch.Add
+    "markdown-index"
+    (dict
+        "ref" .RelPermalink
+        "title" .Title
+        "categories" (.Params.categories | default "")
+        "tags" (.Params.tags | default "")
+        "description" (.Description | default "")
+        "body" (.RawContent | htmlUnescape)
+    )
+-}}
+{{- end -}}
+{{- $.Scratch.Get "markdown-index" | jsonify -}}
